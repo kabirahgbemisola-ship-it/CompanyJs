@@ -28,11 +28,12 @@ app.get("/allproject", (req, resp) => {
     resp.sendFile(path.join(__dirname, "Project", "project.html"))
 });
 
-app.use("err", (req, resp) => {
-    resp.status(404).sendFile(path.join(__dirname, "project", "404.html"))
-    if(err){
+app.use( (req, resp) => {
+    resp.status(404).sendFile(path.join(__dirname, "project", "404.html"), err => {
+        if(err){
         resp.status(404).send("404 not found")
     }
+    })
 })
 
 app.listen(port, () => {
